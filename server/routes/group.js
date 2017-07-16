@@ -1,0 +1,49 @@
+var Group = require('../models/group');
+module.exports = function(app)
+{
+    // GET BY CUSTOMER_ID AND GROUP_TYPE
+    app.get('/api/groups/:customerId/:type', function(req, res){
+        Group.find({customerId: req.params.customerId, type: req.params.type}, function(err, groups){
+            if(err) return res.status(500).json({error: err});
+            res.json(groups);
+        })
+    });
+
+    // CREATE
+    app.post('/api/groups', function(req, res){
+        var group = new Group();
+        group.name = req.body.name;
+        group.customerId = req.body.customerId;
+        group.type = req.body.type;
+        group.address = req.body.address;
+        group.description = req.body.description;
+
+        group.save(function(err){
+            if(err){
+                console.error(err);
+                res.json({result: 0});
+                return;
+            }
+            res.json({result: 1});
+        });
+    });
+
+    // UPDATE THE
+    app.put('/api/groups/:id', function(req, res){
+        Group.update({ _id: req.params.id }, { $set: req.body }, function(err, output){
+            if(err) res.status(500).json({ error: 'database failure' });
+            console.log(output);
+            if(!output.n) return res.status(404).json({ error: 'group not found' });
+            res.json( { message: 'group updated' } );
+        })
+    });
+
+    // DELETE
+    app.delete('/api/groups/:id', function(req, res){
+        Group.remove({ _id: req.params.id }, function(err, output){
+            if(err) return res.status(500).json({ error: "database failure" });
+            res.status(204).end();
+        })
+    });
+
+}
