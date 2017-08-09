@@ -1,0 +1,19 @@
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app">
+  <ul>
+    <li v-for="todo in todos">{{ todo.text}} - ({{ todo.done ? 'done' : 'nah' }}) </li>
+  </ul>
+</div>
+
+<script>
+  const vm = new Vue({
+    data: {
+        todos : [
+          {text:'Hello Laracon', done: true},
+          {text: 'Deliver the talk', done: false}
+        ]
+    }
+
+  }).$mount('#app')
+</script>

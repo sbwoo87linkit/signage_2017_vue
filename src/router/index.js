@@ -5,15 +5,27 @@ import Schedule from '../components/Schedule.vue'
 import Content from '../components/Content.vue'
 import User from '../components/User.vue'
 import Customer from '../components/Customer.vue'
+import Login from '../components/Login.vue'
+import Signup from '../components/Signup.vue'
 Vue.use(Router)
 
 export default new Router({
-  history: true,
+  // history: true,
+  mode: 'history',
   routes: [
     {
-      path: '/',
-      name: 'Hello',
-      component: Hello
+      path: '*',
+      redirect: '/schedule'
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup
     },
     {
       path: '/schedule',

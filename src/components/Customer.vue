@@ -10,6 +10,7 @@
         <th>
         </th>
       </tr>
+
       <tr class="w3-dark-gray">
         <td><input class="w3-input w3-border" v-model="item.name" type="text"></td>
         <td><input class="w3-input w3-border" v-model="item.description" type="text"></td>
@@ -33,10 +34,13 @@
 
 
     </table>
+
   </div>
 </template>
 
 <script>
+
+  import config from '../config'
 
   export default {
     name: 'customer',
@@ -53,34 +57,32 @@
     },
     methods: {
       add: function () {
-        this.$http.post('http://localhost:3000/api/customers', this.item)
+        this.$http.post(config.url + '/customers', this.item)
           .then(function (response) {
             this.get();
           });
       },
       get: function () {
-        this.$http.get('http://localhost:3000/api/customers')
+        this.$http.get(config.url + '/customers')
           .then(function (response) {
             this.items = response.data;
           });
       },
       update: function (id, item) {
-        this.$http.put('http://localhost:3000/api/customers/' + id, item)
+        this.$http.put(config.url + '/customers/' + id, item)
           .then(function (response) {
             this.get();
           });
       },
       del: function (id) {
-        this.$http.delete('http://localhost:3000/api/customers/'+ id)
+        this.$http.delete(config.url + '/customers/' + id)
           .then(function (response) {
             this.get();
           });
       },
     },
-
     created: function () {
       this.get();
-
     },
   }
 

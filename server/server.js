@@ -1,9 +1,3 @@
-/**
- * Satellizer Node.js Example
- * (c) 2015 Sahat Yalkabov
- * License: MIT
- */
-
 var path = require('path');
 var qs = require('querystring');
 
@@ -17,12 +11,18 @@ var logger = require('morgan');
 var jwt = require('jwt-simple');
 var moment = require('moment');
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 var request = require('request');
+var auth = require('./routes/auth')
+// var multer = requiere('multer')
 
 var config = require('./config');
 
 
-mongoose.connect(config.MONGO_URI);
+mongoose.connect(config.MONGO_URI, {
+  useMongoClient: true,
+  /* other options */
+});
 mongoose.connection.on('error', function (err) {
     console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });
@@ -45,11 +45,24 @@ if (app.get('env') === 'production') {
 }
 app.use(express.static(path.join(__dirname, '../client')));
 
+// [CONFIGURE AUTH]
+app.all('*', function(req,res,next) {
+  if (req.path.startsWith('/api/client') || req.path.startsWith('/api/users/login') || req.path.startsWith('/api/users/signup')  ) {
+    next();
+  }
+  else {
+    auth.ensureAuthenticated(req,res,next);
+  }
+});
 
 // [CONFIGURE ROUTER]
+require('./routes/client')(app);
+require('./routes/schedule')(app);
 require('./routes/user')(app);
 require('./routes/customer')(app);
 require('./routes/group')(app);
+require('./routes/content')(app);
+require('./routes/player')(app);
 
 
 

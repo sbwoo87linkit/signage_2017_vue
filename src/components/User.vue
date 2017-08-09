@@ -1,6 +1,6 @@
 <template>
   <div>
-    <select-customer></select-customer>
+    <select-customer @changed="customerChanged"></select-customer>
 
 
     <h1>User</h1>
@@ -20,7 +20,9 @@
       'select-customer': SelectCustomer
     },
     data () {
-      return {}
+      return {
+          customerId: ''
+      }
     },
     computed: mapGetters([
       'evenOrOdd'
@@ -32,6 +34,14 @@
         'incrementIfOdd',
         'incrementAsync'
       ]),
+
+      customerChanged: function (data) {
+//        console.log('Schedule.vue :: customerChanged.....', data)
+        localStorage.setItem('customerId', data);
+        this.customerId = data;
+      },
+
+
       add: function () {
         this.$http.post('http://localhost:3000/api/customers', this.item)
           .then(function (response) {
