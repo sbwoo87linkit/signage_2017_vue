@@ -1,6 +1,14 @@
 <template>
   <div>
 
+    <ul class="w3-ul w3-border">
+      <li class="w3-pale-yellow"><strong>Customer List</strong></li>
+      <li class="link" :class="{'w3-blue' : customerId === item._id }"
+          v-for="item in items" @click="changed(item)">{{item.name}}
+      </li>
+      <li v-if="isDataLoaded && !items.length"><span class="w3-pink w3-padding-small">No data</span></li>
+    </ul>
+
 <!--
     <div class="w3-dropdown-click" style="width: 100%">
       <button  class="w3-btn w3-block w3-black" @click="isOpen = !isOpen">Click Me!- {{isOpen}} </button>
@@ -11,11 +19,11 @@
 -->
 
 
-    <div class="container">
-      <select class="w3-select w3-border w3-border-blue" v-model="customerId" v-on:change="$emit('changed', customerId)">
-        <option v-for="item in items" v-bind:value="item._id" >{{item.name}} | {{item._id}}</option>
-      </select>
-    </div>
+    <!--<div class="container">-->
+      <!--<select class="w3-select w3-border w3-border-blue" v-model="customerId" v-on:change="$emit('changed', customerId)">-->
+        <!--<option v-for="item in items" v-bind:value="item._id" >{{item.name}} | {{item._id}}</option>-->
+      <!--</select>-->
+    <!--</div>-->
 
 
   </div>
@@ -30,6 +38,7 @@
     name: 'selectCustomer',
     data () {
       return {
+        isDataLoaded : false,
         isOpen: false,
         isCustomerMenu: false,
         customerId: null,
@@ -49,7 +58,10 @@
         this.$http.get(config.url + '/customers')
           .then(function (response) {
 
+
             this.items = response.data;
+
+            this.isDataLoaded = true;
 
             var item = this.$lodash.find(response.data, {_id: localStorage.getItem('customerId')});
 
@@ -65,10 +77,12 @@
 
           });
       },
-//      customerChanged: function () {
-//        localStorage.setItem('customerId', this.customerId);
+      changed: function (item) {
+        this.customerId = item._id;
+        localStorage.setItem('customerId', item._id);
+        this.$emit('changed', this.customerId);
 //        bus.$emit('customerChanged', this.customerId);
-//      }
+      }
     },
 
     created: function () {

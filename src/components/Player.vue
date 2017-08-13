@@ -179,9 +179,8 @@
       }
     },
     created: function () {
-//      this.groupId = localStorage.getItem('ScheduleGroupId');
-//      this.get();
-      this.timer = setInterval(this.get, 3000)
+
+//      this.timer = setInterval(this.get, 3000)
     },
     beforeDestroy() {
       clearInterval(this.timer)

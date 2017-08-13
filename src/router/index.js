@@ -7,16 +7,21 @@ import User from '../components/User.vue'
 import Customer from '../components/Customer.vue'
 import Login from '../components/Login.vue'
 import Signup from '../components/Signup.vue'
+import Group from '../components/Group.vue'
+import Sidemenu from '../components/Sidemenu.vue'
+const Side = { template: '<div>side</div>' }
+
 Vue.use(Router)
+
 
 export default new Router({
   // history: true,
   mode: 'history',
   routes: [
-    {
-      path: '*',
-      redirect: '/schedule'
-    },
+    // {
+    //   path: '*',
+    //   redirect: '/schedule'
+    // },
     {
       path: '/login',
       name: 'Login',
@@ -28,9 +33,24 @@ export default new Router({
       component: Signup
     },
     {
-      path: '/schedule',
+      path: '/schedule/',
       name: 'Schedule',
-      component: Schedule
+      components : {
+        default : Schedule,
+        side : Sidemenu
+      }
+    },
+    {
+      path: '/schedule/:id',
+      name: 'Schedule',
+      //component: Schedule
+      // children : {
+      //
+      // },
+      components : {
+        default : Schedule,
+        side : Sidemenu
+      }
     },
     {
       path: '/content',

@@ -2,10 +2,9 @@
   <div class="w3-left-align">
 
 
-    <select-customer @changed="customerChanged"></select-customer>
-    <app-group v-bind:customer-id="customerId" @changed="groupChanged" class="w3-margin-top"></app-group>
-    {{groupId}}
-    <app-player v-bind:initgroup-id="groupId" ></app-player>
+    <!--<select-customer @changed="customerChanged"></select-customer>-->
+    <!--<app-group v-bind:customer-id="customerId" @changed="groupChanged" class="w3-margin-top"></app-group>-->
+    <!--{{groupId}}-->
     <!--groupId : {{ groupId }}-->
 
 
@@ -78,6 +77,7 @@
 
     </div>
 
+    <app-player v-bind:initgroup-id="groupId" ></app-player>
 
   </div>
 </template>

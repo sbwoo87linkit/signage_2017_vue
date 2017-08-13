@@ -1,5 +1,17 @@
 <template>
   <div>
+    customerId : {{customerId}}
+    <ul class="w3-ul w3-border">
+      <li class="w3-pale-yellow"><strong>Group List</strong></li>
+      <!--<li v-for="item in items">{{item.name}}</li>-->
+      <li class="link" :class="{'w3-blue' : customerId === item._id }"
+          v-for="item in items" @click="changed(item)">{{item.name}}
+      </li>
+      <li v-if="isDataLoaded && !items.length" v-cloak=""><span class="w3-pink w3-padding-small">No data</span></li>
+    </ul>
+
+
+    <!--
 
     <button @click="groupOpened = !groupOpened"
             class="w3-btn w3-block w3-left-align w3-border w3-border-blue">
@@ -41,7 +53,7 @@
           </td>
           <td>
             <input class="w3-input w3-border w3-padding-small" v-model="item.name" type="text">
-            <!--{{item._id}}-->
+            &lt;!&ndash;{{item._id}}&ndash;&gt;
           </td>
           <td><input class="w3-input w3-border w3-padding-small" v-model="item.description" type="text"></td>
           <td><input class="w3-input w3-border w3-padding-small" v-model="item.address" type="text"></td>
@@ -62,6 +74,7 @@
 
     </div>
 
+-->
   </div>
 </template>
 
@@ -74,6 +87,8 @@
     name: 'group',
     data() {
       return {
+        //customerId : '',
+        isDataLoaded: false,
         groupOpened: true,
         type: this.$route.name,
 //        customerId: '',
@@ -91,9 +106,17 @@
 
       }
     },
-    props: [
-      'customerId'
-    ],
+//    props: [
+//      'customerId'
+//    ],
+    props: {
+
+      customerId: {
+        type: String,
+        default: ''
+      },
+
+    },
     methods: {
       saveSelection: function (id) {
 
@@ -111,6 +134,8 @@
         this.$http.get(config.url + '/groups/' + this.customerId + '/' + this.type)
           .then(function (response) {
             this.items = response.data;
+            console.log(this.items)
+            this.isDataLoaded = true;
 
             var item = this.$lodash.find(response.data, {_id: localStorage.getItem(this.type + 'GroupId')});
 
@@ -140,10 +165,12 @@
       },
     },
     created: function () {
-//      this.get();
+      console.log('Group created :: customer_id changed ', this.customerId)
+      this.get();
     },
     watch: {
       'customerId': function (val) {
+        console.log('watch :: customer_id changed')
         this.get();
       }
     }
@@ -154,21 +181,21 @@
 <style scoped>
   @import '../assets/css/w3.css';
 
-  h1, h2 {
-    font-weight: normal;
-  }
+  /*h1, h2 {*/
+    /*font-weight: normal;*/
+  /*}*/
 
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
+  /*ul {*/
+    /*list-style-type: none;*/
+    /*padding: 0;*/
+  /*}*/
 
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
+  /*li {*/
+    /*display: inline-block;*/
+    /*margin: 0 10px;*/
+  /*}*/
 
-  a {
-    color: #42b983;
-  }
+  /*a {*/
+    /*color: #42b983;*/
+  /*}*/
 </style>
