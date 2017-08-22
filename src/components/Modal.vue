@@ -1,17 +1,17 @@
 <template>
 
-  <div class="w3-modal w3-show">
+  <div class="w3-modal">
     <div class="w3-modal-content w3-card-4 w3-animate-top">
-      <header class="w3-container w3-teal">
+      <header class="w3-container w3-teal w3-margin-bottom">
         <span @click="$emit('close')"
-              class="w3-button w3-display-topright">&times;</span>
+              class="w3-button w3-hover-red w3-display-topright">&times;</span>
         <slot name="header">
         default header
         </slot>
       </header>
-      <div class="w3-container">
+      <div class="w3-container w3-margin-bottom w3-padding-16">
 
-        <slot name="body">
+        <slot name="body" class="w3-margin-bottom">
           default body
         </slot>
 

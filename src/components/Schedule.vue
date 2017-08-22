@@ -1,90 +1,133 @@
 <template>
-  <div class="w3-left-align">
+    <div class="w3-row">
+      <!--<div class="w3-col m3 w3-container">-->
+        <!--<side-menu></side-menu>-->
+      <!--</div>-->
+      <!--<div class="w3-col m9 w3-container">-->
+
+        <!--<div v-if="!groupId" class="w3-panel w3-pale-red w3-center"><h3>No group selected</h3></div>-->
+        <!--<schedule-setting v-if="groupId" :group-id="groupId"></schedule-setting>-->
+        <!--<div class="w3-panel w3-border w3-border-blue">-->
+
+          <!--<a @click="showAddModal = true"-->
+             <!--class="w3-btn w3-block w3-black w3-margin-top w3-margin-bottom">Add Schedule</a>-->
+          <!--<modal v-if="showAddModal" @close="showAddModal = false">-->
+            <!--<h3 slot="header">Add schedule</h3>-->
+            <!--<div slot="body">-->
+              <!--<schedule-item :initialItem="item" @saveSchedule="addSchedule($event)"></schedule-item>-->
+            <!--</div>-->
+          <!--</modal>-->
 
 
-    <!--<select-customer @changed="customerChanged"></select-customer>-->
-    <!--<app-group v-bind:customer-id="customerId" @changed="groupChanged" class="w3-margin-top"></app-group>-->
-    <!--{{groupId}}-->
-    <!--groupId : {{ groupId }}-->
+          <!--<div class="w3-display-container   w3-green w3-margin-bottom" v-for="(schedule, index) in items">-->
+            <!--<schedule-view :initData="schedule"></schedule-view>-->
+
+            <!--<header class="w3-container w3-teal">-->
+              <!--<div class=" w3-display-topright">-->
 
 
+            <!--<span @click.stop="schedule.showEditModal = true"-->
+                  <!--class="w3-button w3-pink"><i class="fa fa-pencil" aria-hidden="true"></i></span>-->
+                <!--<modal v-if="schedule.showEditModal" @close="schedule.showEditModal = false">-->
+                  <!--<h3 slot="header">Edit schedule</h3>-->
+                  <!--<div slot="body">-->
+                    <!--<schedule-item :initialItem="schedule" @saveSchedule="updateSchedule($event)"></schedule-item>-->
+                  <!--</div>-->
+                <!--</modal>-->
 
 
-
-    <!--<div v-for="(itemTest, index) in itemTests">-->
-      <!--itemTest.name: {{itemTest.name}}-->
-      <!--<button @click="itemTest.showModal = true">Show Modal - {{itemTest.showModal}}</button>-->
-      <!--&lt;!&ndash; use the modal component, pass in the prop &ndash;&gt;-->
-      <!--<modal v-if="itemTest.showModal" @close="itemTest.showModal = false">-->
-        <!--<h3 slot="header">custom header - {{index}}</h3>-->
-      <!--</modal>-->
-    <!--</div>-->
-
-
-
-    <div v-if="!groupId" class="w3-panel w3-pale-red w3-center"><h3>No group selected</h3></div>
-    <!--<schedule-setting v-if="groupId" :group-id="groupId"></schedule-setting>-->
-    <div class="w3-panel w3-border w3-border-blue">
-
-      <a @click="showAddModal = true"
-         class="w3-btn w3-block w3-black w3-margin-top w3-margin-bottom">Add Schedule</a>
-      <modal v-if="showAddModal" @close="showAddModal = false">
-        <h3 slot="header">Add schedule</h3>
-        <div slot="body">
-          <schedule-item :initialItem="item" @saveSchedule="addSchedule($event)"></schedule-item>
-        </div>
-      </modal>
+                <!--<span @click.stop="schedule.showDeleteModal = true"-->
+                      <!--class="w3-button w3-pink">&times;</span>-->
+                <!--<modal v-if="schedule.showDeleteModal" @close="schedule.showDeleteModal = false">-->
+                  <!--<h3 slot="header">Delete schedule</h3>-->
+                  <!--<div slot="body">-->
+                    <!--<p>-->
+                      <!--<button class="w3-btn w3-block w3-red" @click="removeSchedule(schedule)">delete</button>-->
+                    <!--</p>-->
+                  <!--</div>-->
+                <!--</modal>-->
 
 
+              <!--</div>-->
+              <!--<h3>Schedule - {{schedule.type}}</h3>-->
+              <!--<p>{{schedule.from.HH}}:{{schedule.from.mm}} - {{schedule.to.HH}}:{{schedule.to.mm}}</p>-->
+            <!--</header>-->
 
-      <div class="w3-display-container   w3-green w3-margin-bottom" v-for="(schedule, index) in items">
-        <!--<schedule-view :initData="schedule"></schedule-view>-->
 
-        <header class="w3-container w3-teal">
-          <div class=" w3-display-topright">
+          <!--</div>-->
+
+
+        <!--</div>-->
+
+        <!--<app-player v-bind:initgroup-id="groupId"></app-player>-->
+
+
+      <!--</div>-->
+
+      <div v-if="!groupId" class="w3-panel w3-pale-red w3-center"><h3>No group selected</h3></div>
+      <schedule-setting v-if="groupId" :group-id="groupId"></schedule-setting>
+      <div class="w3-panel w3-border w3-border-blue">
+
+        <a @click="showAddModal = true"
+           class="w3-btn w3-block w3-black w3-margin-top w3-margin-bottom">Add Schedule</a>
+        <modal v-if="showAddModal" @close="showAddModal = false">
+          <h3 slot="header">Add schedule</h3>
+          <div slot="body">
+            <schedule-item :initialItem="item" @saveSchedule="addSchedule($event)"></schedule-item>
+          </div>
+        </modal>
+
+
+        <div class="w3-display-container   w3-green w3-margin-bottom" v-for="(schedule, index) in items">
+          <schedule-view :initData="schedule"></schedule-view>
+
+          <header class="w3-container w3-teal">
+            <div class=" w3-display-topright">
 
 
             <span @click.stop="schedule.showEditModal = true"
                   class="w3-button w3-pink"><i class="fa fa-pencil" aria-hidden="true"></i></span>
-            <modal v-if="schedule.showEditModal" @close="schedule.showEditModal = false">
-              <h3 slot="header">Edit schedule</h3>
-              <div slot="body">
-                <schedule-item :initialItem="schedule" @saveSchedule="updateSchedule($event)"></schedule-item>
-              </div>
-            </modal>
+              <modal v-if="schedule.showEditModal" @close="schedule.showEditModal = false">
+                <h3 slot="header">Edit schedule</h3>
+                <div slot="body">
+                  <schedule-item :initialItem="schedule" @saveSchedule="updateSchedule($event)"></schedule-item>
+                </div>
+              </modal>
 
 
-            <span @click.stop="schedule.showDeleteModal = true"
-                  class="w3-button w3-pink">&times;</span>
-            <modal v-if="schedule.showDeleteModal" @close="schedule.showDeleteModal = false">
-              <h3 slot="header">Delete schedule</h3>
-              <div slot="body">
-                <p>
-                  <button class="w3-btn w3-block w3-red"  @click="removeSchedule(schedule)">delete</button>
-                </p>
-              </div>
-            </modal>
+              <span @click.stop="schedule.showDeleteModal = true"
+                    class="w3-button w3-pink">&times;</span>
+              <modal v-if="schedule.showDeleteModal" @close="schedule.showDeleteModal = false">
+                <h3 slot="header">Delete schedule</h3>
+                <div slot="body">
+                  <p>
+                    <button class="w3-btn w3-block w3-red" @click="removeSchedule(schedule)">delete</button>
+                  </p>
+                </div>
+              </modal>
 
 
-          </div>
-          <h3>Schedule - {{schedule.type}}</h3>
-          <p>{{schedule.from.HH}}:{{schedule.from.mm}} - {{schedule.to.HH}}:{{schedule.to.mm}}</p>
-        </header>
+            </div>
+            <h3>Schedule - {{schedule.type}}</h3>
+            <p>{{schedule.from.HH}}:{{schedule.from.mm}} - {{schedule.to.HH}}:{{schedule.to.mm}}</p>
+          </header>
+
+
+        </div>
 
 
       </div>
 
+      <app-player v-bind:initgroup-id="groupId"></app-player>
 
     </div>
 
-    <app-player v-bind:initgroup-id="groupId" ></app-player>
 
-  </div>
 </template>
 
 <script>
   import SelectCustomer from './SelectCustomer.vue'
-  import Group from './Group.vue'
+  import Group from './group/Group.vue'
   import Player from './Player.vue'
   import ScheduleSetting from './ScheduleSetting.vue'
   import ScheduleItem from './ScheduleItem.vue'
@@ -92,13 +135,14 @@
   import VueTimepicker from 'vue2-timepicker'
   import Modal from './Modal.vue'
   import ScheduleView from './ScheduleView.vue'
+  import Sidemenu from './Sidemenu.vue'
 
 
   export default {
     name: 'app-schedule',
     data() {
       return {
-        itemTests : [{name: 'aaa', showModal: false},{name: 'bbb', showModal: false},{name: 'ccc', showModal: false}],
+        itemTests: [{name: 'aaa', showModal: false}, {name: 'bbb', showModal: false}, {name: 'ccc', showModal: false}],
 //        showModal: false,
 //        display: 'none',
         customerId: '',
@@ -150,8 +194,9 @@
       'select-customer': SelectCustomer,
       'schedule-setting': ScheduleSetting,
       'schedule-item': ScheduleItem,
-      'modal' : Modal,
-      'schedule-view' : ScheduleView
+      'modal': Modal,
+      'schedule-view': ScheduleView,
+      'side-menu' : Sidemenu
 
 
 //      VueTimepicker
@@ -176,8 +221,6 @@
 
       addSchedule: function (item) {
 
-//        alert('addSchedule')
-        console.log(item)
         this.item.customerId = this.customerId;
         this.$http.post(config.url + '/schedules/' + this.groupId, item)
           .then(function (response) {
@@ -224,6 +267,7 @@
 
     created: function () {
 //      this.getContents();
+
     },
 
     watch: {

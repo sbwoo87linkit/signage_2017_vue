@@ -1,82 +1,79 @@
 <template>
   <div>
-    <select-customer @changed="customerChanged"></select-customer>
+    <h3>Content</h3>
+    <p>groupId: {{$route.params.id}}</p>
+    <!--<div class="w3-container">-->
 
-    <app-group v-bind:customer-id="customerId" @changed="groupChanged" class="w3-margin-top"></app-group>
+      <!--<div id="id01" class="w3-modal w3-show" v-if="uploading">-->
+        <!--<div class="w3-modal-content w3-animate-top">-->
+          <!--<header class="w3-container w3-teal">-->
+            <!--<h3>Contents uploading ... </h3>-->
+          <!--</header>-->
+          <!--<div class="w3-container">-->
 
-    <!--Uploading Modal-->
-    <div class="w3-container">
+            <!--<div class="w3-dark-gray w3-margin">-->
+              <!--<div class="w3-blue" v-bind:style="{ width : getProgress }">{{getProgress}}</div>-->
+            <!--</div>-->
 
-      <div id="id01" class="w3-modal w3-show" v-if="uploading">
-        <div class="w3-modal-content w3-animate-top">
-          <header class="w3-container w3-teal">
-            <h3>Contents uploading ... </h3>
-          </header>
-          <div class="w3-container">
+            <!--<button class="w3-button w3-black w3-hover-red" @click="cancelUpload">Cancel Upload</button>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
 
-            <div class="w3-dark-gray w3-margin">
-              <div class="w3-blue" v-bind:style="{ width : getProgress }">{{getProgress}}</div>
-            </div>
+    <!--<div class="w3-container w3-border w3-border-blue w3-blue w3-left-align w3-margin-top">-->
+      <!--<h5>Contents List ({{items.length}})</h5>-->
+    <!--</div>-->
+    <!--<div class="w3-container w3-border w3-border-blue">-->
 
-            <button class="w3-button w3-black w3-hover-red" @click="cancelUpload">Cancel Upload</button>
-          </div>
-        </div>
-      </div>
-    </div>
+      <!--<div class="w3-row w3-margin-top">-->
+        <!--<div class="w3-col s10">-->
+          <!--<input class="w3-input w3-border" type="file" id="upload" ref="upload" multiple>-->
+        <!--</div>-->
+        <!--<div class="w3-container w3-col s2 w3-cell w3-cell-middle">-->
+          <!--<button class="w3-button w3-block w3-large w3-green"  @click="upload">Upload</button>-->
+        <!--</div>-->
 
-    <div class="w3-container w3-border w3-border-blue w3-blue w3-left-align w3-margin-top">
-      <h5>Contents List ({{items.length}})</h5>
-    </div>
-    <div class="w3-container w3-border w3-border-blue">
+      <!--</div>-->
 
-      <div class="w3-row w3-margin-top">
-        <div class="w3-col s10">
-          <input class="w3-input w3-border" type="file" id="upload" ref="upload" multiple>
-        </div>
-        <div class="w3-container w3-col s2 w3-cell w3-cell-middle">
-          <button class="w3-button w3-block w3-large w3-green"  @click="upload">Upload</button>
-        </div>
+      <!--<table class="w3-table-all w3-margin-top w3-margin-bottom">-->
+        <!--<tr>-->
+          <!--<th>name</th>-->
+          <!--<th class="w3-right-align">size</th>-->
+          <!--<th>thumbnail</th>-->
+          <!--<th>date</th>-->
+          <!--<th>-->
+          <!--</th>-->
+        <!--</tr>-->
 
-      </div>
+        <!--<tr v-for="item in items">-->
+          <!--<td>{{item.originalName}}</td>-->
+          <!--<td class="w3-right-align" v-bind:title="item.size.toLocaleString()">{{item.size | filesize }}</td>-->
+          <!--<td>{{item.mimeType}}</td>-->
+          <!--<td>{{item.createAt | moment }}</td>-->
+          <!--<td>-->
+            <!--<div class="w3-right">-->
+              <!--<confirm-delete @delete="del(item._id)"></confirm-delete>-->
+            <!--</div>-->
 
-      <table class="w3-table-all w3-margin-top w3-margin-bottom">
-        <tr>
-          <th>name</th>
-          <th class="w3-right-align">size</th>
-          <th>thumbnail</th>
-          <th>date</th>
-          <th>
-          </th>
-        </tr>
-
-        <tr v-for="item in items">
-          <td>{{item.originalName}}</td>
-          <td class="w3-right-align" v-bind:title="item.size.toLocaleString()">{{item.size | filesize }}</td>
-          <td>{{item.mimeType}}</td>
-          <td>{{item.createAt | moment }}</td>
-          <td>
-            <div class="w3-right">
-              <confirm-delete @delete="del(item._id)"></confirm-delete>
-            </div>
-
-          </td>
-        </tr>
+          <!--</td>-->
+        <!--</tr>-->
 
 
-      </table>
+      <!--</table>-->
 
-    </div>
+    <!--</div>-->
 
   </div>
 </template>
 
 <script>
-  import Group from './group/Group.vue'
-  import SelectCustomer from './SelectCustomer.vue'
-  import ConfirmDelete from './ConfirmDelete.vue'
-  import auth from '../auth'
-  import moment from 'moment'
-  import config from '../config'
+//  import Group from './group/Group.vue'
+//  import SelectCustomer from './SelectCustomer.vue'
+//  import ConfirmDelete from './ConfirmDelete.vue'
+//  import auth from '../auth'
+//  import moment from 'moment'
+//  import config from '../config'
 
 
   export default {
@@ -131,10 +128,10 @@
     },
 
     components: {
-      ConfirmDelete,
-      'app-group': Group,
-      'select-customer': SelectCustomer,
-      'confirm-delete' : ConfirmDelete
+//      ConfirmDelete,
+//      'app-group': Group,
+//      'select-customer': SelectCustomer,
+//      'confirm-delete' : ConfirmDelete
     },
 
     methods: {
@@ -188,6 +185,11 @@
       },
 
       get: function () {
+
+        localStorage.setItem('menu', 'content');
+        console.log('set content GroupId .... ');
+        localStorage.setItem('contentGroupId', this.$route.params.id);
+
         if (!this.groupId) {
           this.items = [];
           return;
@@ -218,14 +220,17 @@
       }
     },
     created: function () {
+//      localStorage.setItem('menu', 'content');
+      this.get();
     }
+
 
 
   }
 </script>
 
 <style scoped>
-  @import '../assets/css/w3.css';
+  @import '../../assets/css/w3.css';
 
   img {
     width: 30%;

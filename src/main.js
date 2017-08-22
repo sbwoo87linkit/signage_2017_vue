@@ -7,6 +7,10 @@ import VueRsource  from 'vue-resource'
 import store from './store/store'
 import lodash from 'lodash';
 import auth from './auth'
+import Vue2Filters from 'vue2-filters'
+
+
+Vue.use(Vue2Filters)
 // import VueTimepicker from 'vue2-timepicker'
 
 Object.defineProperty(Vue.prototype, '$lodash', { value: lodash });
@@ -42,7 +46,7 @@ router.beforeEach((to, from, next) => {
 export const bus = new Vue();
 
 /* eslint-disable no-new */
-new Vue({
+window.vue = new Vue({
   el: '#app',
   router,
   store,

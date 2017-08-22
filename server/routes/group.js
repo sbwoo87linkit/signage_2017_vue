@@ -11,7 +11,6 @@ module.exports = function (app) {
     })
   });
 
-
   app.get('/api/groups/:customerId/:type', function (req, res) {
     Group.find({customerId: req.params.customerId, type: req.params.type}, function (err, groups) {
       if (err) return res.status(500).json({error: err});
@@ -20,20 +19,29 @@ module.exports = function (app) {
   });
 
   // CREATE
-  app.post('/api/groups', function (req, res) {
+  app.post('/api/groups/:customerId/:type', function (req, res) {
     var group = new Group();
     group.name = req.body.name;
-    group.customerId = req.body.customerId;
-    group.type = req.body.type;
-    group.address = req.body.address;
-    group.description = req.body.description;
+    group.customerId = req.params.customerId;
+    group.type = req.params.type;
+    // group.address = req.body.address;
+    // group.description = req.body.description;
 
     group.save(function (err) {
       if (err) {
-        console.error(err);
-        res.json({result: 0});
-        return;
+        if (err.name === 'MongoError' && err.code === 11000) {
+          // next(new Error('email must be unique'));
+          return res.status(422).json({error: 'Already group name exists.'});
+        }
+        return res.status(500).json({error: 'database failure'});
       }
+
+
+      // if (err) {
+      //   console.error(err);
+      //   res.json({result: 0});
+      //   return;
+      // }
       res.json({result: 1});
     });
   });
@@ -41,9 +49,18 @@ module.exports = function (app) {
   // UPDATE THE
   app.put('/api/groups/:id', function (req, res) {
     Group.update({_id: req.params.id}, {$set: req.body}, function (err, output) {
-      if (err) res.status(500).json({error: 'database failure'});
-      console.log(output);
-      if (!output.n) return res.status(404).json({error: 'group not found'});
+
+      if (err) {
+        if (err.name === 'MongoError' && err.code === 11000) {
+          // next(new Error('email must be unique'));
+          return res.status(422).json({error: 'Already group name exists.'});
+        }
+        return res.status(500).json({error: 'database failure'});
+      }
+      // console.log(output);
+      if (!output.n) {
+        return res.status(404).json({error: 'group not found'});
+      }
       res.json({message: 'group updated'});
     })
   });

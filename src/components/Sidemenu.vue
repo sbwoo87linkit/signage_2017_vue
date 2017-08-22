@@ -1,9 +1,10 @@
 <template>
   <div>
-    <select-customer @changed="customerChanged"></select-customer>
+    {{ 'side-menu' }}
+    <!--<select-customer @changed="customerChanged"></select-customer>-->
 
-    {{customerId}}
-    <app-group v-bind:customer-id="customerId" @changed="groupChanged" class="w3-margin-top"></app-group>
+    <!--&lt;!&ndash;{{$route.params.id}}&ndash;&gt;-->
+    <group v-bind:customer-id="customerId" @changed="groupChanged" class="w3-margin-top"></group>
   </div>
 
 </template>
@@ -13,12 +14,12 @@
   //  import Customer from './Customer.vue'
 
   import SelectCustomer from './SelectCustomer.vue'
-  import Group from './Group.vue'
+  import Group from './group/Group.vue'
 
 
   export default {
     components: {
-      'app-group': Group,
+      'group': Group,
       'select-customer' : SelectCustomer
     },
     data() {
@@ -34,7 +35,16 @@
         this.customerId = customerId;
       }
 
-    }
+    },
+    watch: {
+//      'customerId': function (val) {
+//        this.get();
+//      },
+//      '$route' (to, from) {
+////        this.groupId = to.params.id;
+//        console.log('side-menu $route')
+//      }
+    },
   }
 </script>
 

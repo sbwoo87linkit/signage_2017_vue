@@ -1,11 +1,11 @@
 <template>
   <header>
-    <div class="w3-bar w3-white w3-card w3-margin-bottom">
+    <div class="w3-bar w3-border-bottom w3-margin-bottom">
       <span class="w3-bar-item w3-yellow">Signage Manager</span>
-      <router-link to="/schedule" class="w3-bar-item w3-button w3-hide-small" v-if="user.authenticated">Schedule</router-link>
-      <router-link to="/content" class="w3-bar-item w3-button w3-hide-small" v-if="user.authenticated">Content</router-link>
+      <router-link :to="'/schedule/' + scheduleGroupId" class="w3-bar-item w3-button w3-hide-small" v-if="user.authenticated">Schedule</router-link>
+      <router-link :to="'/content/' + contentGroupId" class="w3-bar-item w3-button w3-hide-small" v-if="user.authenticated">Content</router-link>
       <router-link to="/user" class="w3-bar-item w3-button w3-hide-small" v-if="user.authenticated">User</router-link>
-      <router-link to="/customer" class="w3-bar-item w3-button w3-hide-small" v-if="user.authenticated">Customer</router-link>
+      <router-link to="/customer/list" class="w3-bar-item w3-button w3-hide-small" v-if="user.authenticated">Customer</router-link>
       <!--<a ng-if="!isAuthenticated()" ui-sref="login" class="w3-bar-item w3-button w3-hide-small w3-right">Login</a>-->
       <!--// DO NOT DELETE-->
       <router-link to="/login" class="w3-bar-item w3-button w3-hide-small w3-right" v-if="!user.authenticated">Login</router-link>
@@ -46,19 +46,29 @@
   export default {
     data() {
       return {
-        user: auth.user
+        user: auth.user,
+        scheduleGroupId: localStorage.getItem('scheduleGroupId'),
+        contentGroupId: localStorage.getItem('contentGroupId'),
       }
     },
     methods : {
+      fetchData() {
+        this.scheduleGroupId= localStorage.getItem('scheduleGroupId');
+        this.contentGroupId= localStorage.getItem('contentGroupId');
+      },
       logout : function () {
-
-//        alert('log out...jjjj')
         auth.signout();
       }
     },
     components : {
       SelectCustomer,
       'select-customer' : SelectCustomer
+    },
+    created() {
+      this.fetchData();
+    },
+    watch : {
+      '$route': 'fetchData'
     }
   }
 </script>

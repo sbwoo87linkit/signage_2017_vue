@@ -12,20 +12,20 @@
       <li v-if="isDataLoaded && !items.length"><span class="w3-pink w3-padding-small">No data</span></li>
     </ul>
 
-<!--
-    <div class="w3-dropdown-click" style="width: 100%">
-      <button  class="w3-btn w3-block w3-black" @click="isOpen = !isOpen">Click Me!- {{isOpen}} </button>
-      <div id="Demo" class="w3-dropdown-content w3-bar-block w3-border" v-bind:class="{'w3-show': isOpen}" style="width:100%">
-        <a v-for="item in items" class="w3-bar-item w3-button " @click="customerId=item._id; isOpen=false" :class="{'w3-blue' : customerId === item._id}">{{item.name}}</a>
-      </div>
-    </div>
--->
+    <!--
+        <div class="w3-dropdown-click" style="width: 100%">
+          <button  class="w3-btn w3-block w3-black" @click="isOpen = !isOpen">Click Me!- {{isOpen}} </button>
+          <div id="Demo" class="w3-dropdown-content w3-bar-block w3-border" v-bind:class="{'w3-show': isOpen}" style="width:100%">
+            <a v-for="item in items" class="w3-bar-item w3-button " @click="customerId=item._id; isOpen=false" :class="{'w3-blue' : customerId === item._id}">{{item.name}}</a>
+          </div>
+        </div>
+    -->
 
 
     <!--<div class="container">-->
-      <!--<select class="w3-select w3-border w3-border-blue" v-model="customerId" v-on:change="$emit('changed', customerId)">-->
-        <!--<option v-for="item in items" v-bind:value="item._id" >{{item.name}} | {{item._id}}</option>-->
-      <!--</select>-->
+    <!--<select class="w3-select w3-border w3-border-blue" v-model="customerId" v-on:change="$emit('changed', customerId)">-->
+    <!--<option v-for="item in items" v-bind:value="item._id" >{{item.name}} | {{item._id}}</option>-->
+    <!--</select>-->
     <!--</div>-->
 
 
@@ -34,8 +34,8 @@
 
 <script>
 
-  import { bus } from '../main'
-  import config from '../config'
+//  import { bus } from '../main'
+  import config from '../../config'
 
   export default {
     name: 'selectCustomer',
@@ -94,21 +94,12 @@
     created: function () {
       this.get();
     },
-    watch: {
-//      'customerId': function (val) {
-//        this.get();
-//      },
-      '$route' (to, from) {
-//        this.groupId = to.params.id;
-        console.log('customer-select $route')
-      }
-    },
 
   }
 
 </script>
 
 <style scoped>
-  @import '../assets/css/w3.css';
+  @import '../../assets/css/w3.css';
 
 </style>
